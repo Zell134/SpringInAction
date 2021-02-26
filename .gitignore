@@ -28,3 +28,13 @@ local.properties
 .DS_Store
 *.log
 *.bak
+
+README.md
+boot-run.bat
+mvnw
+mvnw.cmd
+nbactions.xml
+
+.mvn/
+@log.path@/
+bin/
