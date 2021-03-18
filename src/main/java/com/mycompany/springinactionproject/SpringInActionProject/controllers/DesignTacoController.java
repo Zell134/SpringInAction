@@ -8,9 +8,9 @@ import static com.mycompany.springinactionproject.SpringInActionProject.models.I
 import com.mycompany.springinactionproject.SpringInActionProject.models.Order;
 import com.mycompany.springinactionproject.SpringInActionProject.models.Taco;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.validation.Valid;
-import javax.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,8 +27,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @RequestMapping("/design")
 @SessionAttributes("order")
 public class DesignTacoController {
-
-    private final IngredientRepository ingredientRepo;
+    
+    private IngredientRepository ingredientRepo;
     private TacoRepository designRepo;
 
     @Autowired
@@ -56,15 +56,15 @@ public class DesignTacoController {
 
     @PostMapping
     public String processDesign(@ModelAttribute("design") @Valid Taco design, Errors errors, Model model, @ModelAttribute("order") Order order) {
-        if (errors.hasErrors() || !design.equals(null)) {
+        if (errors.hasErrors() || design == null) {
             setIngredient(model);
             model.addAttribute("design", design);
             return "design";
-        }
+        }      
         Taco saved = designRepo.save(design);
-        List list = new ArrayList<String>();
-        list.add(saved.getId());
-        order.setDesign(list);
+        List list = new ArrayList<Taco>();
+        list.add(saved);
+        order.setTaco(list);
         return "redirect:/orders/current";
     }
 
