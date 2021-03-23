@@ -1,7 +1,6 @@
 package com.mycompany.springinactionproject.SpringInActionProject.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -9,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
@@ -25,11 +25,15 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    
     private Date placedAt;
 
     @ManyToMany(targetEntity = Taco.class)
     private List<Taco> taco;
-        
+    
+    @ManyToOne
+    private User user;
+
     @NotBlank(message = "Name is required")
     private String name;
     @NotBlank(message = "Street is required")
@@ -47,6 +51,24 @@ public class Order implements Serializable {
     @Digits(integer = 3, fraction = 0, message = "Invalid CVV")
     private String ccCVV;
     
+    public Order() {
+    }
+
+    public Order(long id, Date placedAt, List<Taco> taco, User user, String name, String street, String city, String state, String zip, String ccNumber, String ccExpiration, String ccCVV) {
+        this.id = id;
+        this.placedAt = placedAt;
+        this.taco = taco;
+        this.user = user;
+        this.name = name;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.ccNumber = ccNumber;
+        this.ccExpiration = ccExpiration;
+        this.ccCVV = ccCVV;
+    }
+    
     public void addDesign(Taco design){
         this.taco.add(design);
     }
@@ -54,6 +76,14 @@ public class Order implements Serializable {
     @PrePersist
     void placedAt(){
         this.placedAt = new Date();
+    }
+    
+        public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     
     public void setTaco(List<Taco> design){

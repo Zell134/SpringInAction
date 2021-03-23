@@ -30,7 +30,8 @@ zip varchar(10) not null,
 cc_Number varchar(16) not null,
 cc_Expiration varchar(5) not null,
 ccCVV varchar(3) not null,
-placed_At timestamp not null
+placed_At timestamp not null,
+user_id bigint not null
 );
 
 create table if not exists Taco_Order_Taco (
@@ -38,7 +39,21 @@ Order_id bigint not null,
 Taco_id bigint not null
 );
 
+create table if not exists User(
+id identity,
+username varchar(50) not null,
+password varchar(255) not null,
+fullname varchar(50) not null,
+street varchar(50) not null,
+sity varchar(50) not null,
+state varchar(20) not null,
+zip varchar(10) not null,
+phonenumber varchar(20) not null
+);
+
 alter table Taco_Order_Taco
 add foreign key (Order_id) references Taco_Order(id);
 alter table Taco_Order_Taco
 add foreign key (taco_id) references Taco(id);
+alter table Taco_Order
+add foreign key (user_id) references User(id);

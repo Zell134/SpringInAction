@@ -7,12 +7,14 @@ import com.mycompany.springinactionproject.SpringInActionProject.models.Ingredie
 import static com.mycompany.springinactionproject.SpringInActionProject.models.Ingredient.filterByType;
 import com.mycompany.springinactionproject.SpringInActionProject.models.Order;
 import com.mycompany.springinactionproject.SpringInActionProject.models.Taco;
+import com.mycompany.springinactionproject.SpringInActionProject.models.User;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -27,8 +29,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @RequestMapping("/design")
 @SessionAttributes("order")
 public class DesignTacoController {
-    
+
     private IngredientRepository ingredientRepo;
+
+    public DesignTacoController() {
+    }
+
     private TacoRepository designRepo;
 
     @Autowired
@@ -36,14 +42,14 @@ public class DesignTacoController {
         this.ingredientRepo = ingredientRepo;
         this.designRepo = designRepo;
     }
-    
-    @ModelAttribute(name="order")
-    public Order order(){
+
+    @ModelAttribute(name = "order")
+    public Order order() {
         return new Order();
     }
-    
-    @ModelAttribute(name="design")
-    public Taco taco(){
+
+    @ModelAttribute(name = "design")
+    public Taco taco() {
         return new Taco();
     }
 
@@ -60,7 +66,7 @@ public class DesignTacoController {
             setIngredient(model);
             model.addAttribute("design", design);
             return "design";
-        }      
+        }
         Taco saved = designRepo.save(design);
         List list = new ArrayList<Taco>();
         list.add(saved);
@@ -75,6 +81,6 @@ public class DesignTacoController {
         for (Type type : types) {
             model.addAttribute(type.toString().toLowerCase(),
                     filterByType(ingredients, type));
-        }        
+        }
     }
 }
