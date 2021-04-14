@@ -46,8 +46,8 @@ public class IngredientController {
         ResponseEntity<Ingredient> respEntity = rest.getForEntity("http://localhost:8888/api/ingredients/{id}", Ingredient.class, id);
         Ingredient ingredient = respEntity.getBody();
         ingredient.setId(id);
-        ingredient.setName("fff");
-        ingredient.setId("fff");
+        ingredient.setName("ddd");
+        ingredient.setId("ddd");
         return rest.postForLocation("http://localhost:8888/api/ingredients", ingredient, Ingredient.class);
     }
 }
