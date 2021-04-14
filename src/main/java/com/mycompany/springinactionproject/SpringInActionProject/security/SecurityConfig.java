@@ -1,9 +1,9 @@
 package com.mycompany.springinactionproject.SpringInActionProject.security;
 
-import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,10 +34,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/design", "/orders") 
-                .hasAnyRole("USER")
+                .antMatchers(HttpMethod.OPTIONS).permitAll()
+                .antMatchers("/design", "/orders").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/ingredients").permitAll()
+//                .hasAnyRole("USER")
                 .antMatchers("/", "/**").permitAll()
-                .and().csrf().ignoringAntMatchers("/h2-console/**")
+                .and()
+                .csrf()
+//                .disable()
+                .ignoringAntMatchers("/h2-console/**", "/ingredients/**", "/design", "/orders/**")
                 .and().headers().frameOptions().sameOrigin()
                 .and()
                 .formLogin()

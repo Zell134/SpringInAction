@@ -1,4 +1,4 @@
-package com.mycompany.springinactionproject.SpringInActionProject.controllers;
+package com.mycompany.springinactionproject.SpringInActionProject.api;
 
 import com.mycompany.springinactionproject.SpringInActionProject.data.UserRepository;
 import com.mycompany.springinactionproject.SpringInActionProject.security.RegistrationForm;

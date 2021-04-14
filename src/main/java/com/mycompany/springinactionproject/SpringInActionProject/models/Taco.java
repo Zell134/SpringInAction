@@ -11,9 +11,17 @@ import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@RestResource(path = "tacos", rel = "tacos")
 public class Taco {
 
     @Id
@@ -32,47 +40,5 @@ public class Taco {
     @PrePersist
     void createdAt(){        
         this.createdAt = new Date();
-    }
-    
-    public Taco() {
-    }
-
-    public Taco(long id, Date createdAt, String name, List<Ingredient> ingredients) {
-        this.id = id;
-        this.createdAt = createdAt;
-        this.name = name;
-        this.ingredients = ingredients;
-    }    
-    
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Ingredient> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-    
-     public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 }
