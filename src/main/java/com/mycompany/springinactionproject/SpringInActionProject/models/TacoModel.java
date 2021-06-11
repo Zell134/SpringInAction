@@ -1,9 +1,6 @@
-package com.mycompany.springinactionproject.SpringInActionProject.api;
+package com.mycompany.springinactionproject.SpringInActionProject.models;
 
-import com.mycompany.springinactionproject.SpringInActionProject.models.Ingredient;
-import com.mycompany.springinactionproject.SpringInActionProject.models.Taco;
 import java.util.Date;
-import java.util.List;
 import lombok.Getter;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.RepresentationModel;

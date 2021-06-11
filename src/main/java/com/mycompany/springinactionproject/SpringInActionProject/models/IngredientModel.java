@@ -1,7 +1,5 @@
-package com.mycompany.springinactionproject.SpringInActionProject.api;
+package com.mycompany.springinactionproject.SpringInActionProject.models;
 
-import com.mycompany.springinactionproject.SpringInActionProject.models.Ingredient;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.hateoas.RepresentationModel;
 

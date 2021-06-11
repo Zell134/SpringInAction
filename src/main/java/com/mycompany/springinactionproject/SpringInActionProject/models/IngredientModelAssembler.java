@@ -1,6 +1,6 @@
-package com.mycompany.springinactionproject.SpringInActionProject.api;
+package com.mycompany.springinactionproject.SpringInActionProject.models;
 
-import com.mycompany.springinactionproject.SpringInActionProject.models.Ingredient;
+import com.mycompany.springinactionproject.SpringInActionProject.api.IngredientController;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 
 public class IngredientModelAssembler extends RepresentationModelAssemblerSupport<Ingredient, IngredientModel>{

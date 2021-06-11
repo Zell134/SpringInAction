@@ -1,12 +1,12 @@
-package com.mycompany.springinactionproject.SpringInActionProject.api;
+package com.mycompany.springinactionproject.SpringInActionProject.models;
 
-import com.mycompany.springinactionproject.SpringInActionProject.models.Taco;
+import com.mycompany.springinactionproject.SpringInActionProject.api.DesignTacoRestController;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 
 public class TacoModelAssembler extends RepresentationModelAssemblerSupport<Taco, TacoModel>{
 
     public TacoModelAssembler() {
-        super(DesignTacoController.class, TacoModel.class);
+        super(DesignTacoRestController.class, TacoModel.class);
     }
 
     @Override

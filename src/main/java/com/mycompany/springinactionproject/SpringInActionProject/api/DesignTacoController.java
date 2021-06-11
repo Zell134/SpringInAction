@@ -19,13 +19,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Slf4j
 @Controller
 //@RequestMapping(path = "/design", produces = "application/json")
 @RequestMapping("/design")
 @CrossOrigin(origins = "*")
-//@SessionAttributes("order")
+@SessionAttributes("order")
 public class DesignTacoController {
 
     private TacoRepository tacoRepo;

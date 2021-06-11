@@ -26,10 +26,10 @@ insert into Ingredient (id, name, type)
 values ('SRCR', 'Sour Cream', 'SAUCE');
 
 
-insert into Taco (id, name, created_at)
-values ('1', 'first name', '2021-04-01');
-insert into Taco (id, name, created_at)
-values ('2', 'second name', '2021-04-02 12:01:10');
+insert into Taco (name, created_at)
+values ('first name', '2021-04-01');
+insert into Taco (name, created_at)
+values ('second name', '2021-04-02 12:01:10');
 
 insert into Taco_Ingredients(taco_id, ingredients_id)
 values('1', 'GRBF');

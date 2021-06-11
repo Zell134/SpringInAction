@@ -3,10 +3,10 @@ package com.mycompany.springinactionproject.SpringInActionProject.api;
 import com.mycompany.springinactionproject.SpringInActionProject.data.OrderRepository;
 import com.mycompany.springinactionproject.SpringInActionProject.models.Order;
 import com.mycompany.springinactionproject.SpringInActionProject.models.User;
+import java.util.Date;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -40,6 +40,7 @@ public class OrderController {
         if(errors.hasErrors())
             return "orderForm";   
         order.setUser(user);
+        order.setPlacedAt(new Date());
         orderRepo.save(order);
         sessionStatus.setComplete();
         return "redirect:/";
