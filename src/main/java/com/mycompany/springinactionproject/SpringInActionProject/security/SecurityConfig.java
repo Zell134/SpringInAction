@@ -3,7 +3,6 @@ package com.mycompany.springinactionproject.SpringInActionProject.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -40,9 +39,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
 //                .csrf().disable()
                 .csrf()
-                .ignoringAntMatchers("/h2-console/**", "/api/**", "/api", "/ingredients/**")
-                .and().headers().frameOptions().sameOrigin()
-                .and()
+                .disable()
+//                .ignoringAntMatchers("/h2-console/**", "/api/**", "/api", "/ingredients/**", "/tacos/*")
+//                .and().headers().frameOptions().sameOrigin()
+//                .and()
                 .formLogin()
                 .loginPage("/login").successForwardUrl("/design")
                 .and()

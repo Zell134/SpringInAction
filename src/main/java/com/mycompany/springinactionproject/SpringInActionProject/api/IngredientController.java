@@ -2,47 +2,40 @@ package com.mycompany.springinactionproject.SpringInActionProject.api;
 
 import com.mycompany.springinactionproject.SpringInActionProject.data.IngredientRepository;
 import com.mycompany.springinactionproject.SpringInActionProject.models.Ingredient;
-import java.net.URI;
+import com.mycompany.springinactionproject.SpringInActionProject.services.RabbitMessageSender;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
-@RequestMapping(path = "/ingredients", produces = "application/json")
+@RequestMapping(path = "/ingr", produces = "application/json")
 @CrossOrigin(origins = "*")
 public class IngredientController {
-    
-    @Bean
-    public RestTemplate restTemplate(){
-        return new RestTemplate();
-    }
-    
+
     private IngredientRepository ingredientRepo;
+    private RabbitMessageSender messageSender;
 
     @Autowired
-    public IngredientController(IngredientRepository ingredientRepo) {
+    public IngredientController(IngredientRepository ingredientRepo, RabbitMessageSender messageSender) {
         this.ingredientRepo = ingredientRepo;
+        this.messageSender = messageSender;
     }
-    
+
     @GetMapping
-    public Iterable<Ingredient> allIngredients(){
-        return ingredientRepo.findAll();
+    public List<Ingredient> allIngredients() {
+        List<Ingredient> ingredients = ingredientRepo.findAll().collectList().block();
+        ingredients.forEach(ingr
+                -> messageSender.sendMessage(ingr.toString()));
+        return ingredients;
     }
-    
+
     @GetMapping("{id}")
-    public URI getIngredientById(@Autowired RestTemplate rest, @PathVariable("id")String id){     
-        
-        ResponseEntity<Ingredient> respEntity = rest.getForEntity("http://localhost:8888/api/ingredients/{id}", Ingredient.class, id);
-        Ingredient ingredient = respEntity.getBody();
-        ingredient.setId(id);
-        ingredient.setName("ddd");
-        ingredient.setId("ddd");
-        return rest.postForLocation("http://localhost:8888/api/ingredients", ingredient, Ingredient.class);
+    public Ingredient getIngredient(@PathVariable("id") String id) {
+        return ingredientRepo.findById(id).block();
     }
+
 }

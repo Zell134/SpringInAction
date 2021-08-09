@@ -12,11 +12,7 @@ public class IngredientModel extends RepresentationModel<IngredientModel>{
     public IngredientModel (Ingredient ingredient){
         
         this.name = ingredient.getName();
-        this.type = ingredient.getType();
-    }
-    
-    public static enum Type {
-        WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
+        this.type = ingredient.getType().toString();
     }
     
 }

@@ -1,0 +1,7 @@
+spring:
+    cloud:
+        config:
+            uri: http://3.10.154.98:8888
+            
+    application:
+        name: spring-in-action-service

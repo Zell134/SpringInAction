@@ -1,9 +1,13 @@
 package com.mycompany.springinactionproject.SpringInActionProject.data;
 
 import com.mycompany.springinactionproject.SpringInActionProject.models.Taco;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import reactor.core.publisher.Flux;
 
-//@RepositoryRestResource(collectionResourceRel = "design", path = "taco")
-public interface TacoRepository extends PagingAndSortingRepository<Taco, Long>{
+@CrossOrigin(origins = "*")
+public interface TacoRepository extends ReactiveMongoRepository<Taco, String>{
+    
+    Flux<Taco> findByOrderByCreatedAtDesc();
 
 }

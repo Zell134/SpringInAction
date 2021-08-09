@@ -1,11 +1,10 @@
 package com.mycompany.springinactionproject.SpringInActionProject.data;
 
 import com.mycompany.springinactionproject.SpringInActionProject.models.Order;
-import java.util.List;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
-//@RepositoryRestResource(collectionResourceRel = "order", path = "order")
-public interface OrderRepository extends CrudRepository<Order, Long>{
+@CrossOrigin(origins = "*")
+public interface OrderRepository extends ReactiveMongoRepository<Order, String>{
 
 }

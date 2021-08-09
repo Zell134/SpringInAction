@@ -1,11 +1,12 @@
 package com.mycompany.springinactionproject.SpringInActionProject.data;
 
 import com.mycompany.springinactionproject.SpringInActionProject.models.User;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import reactor.core.publisher.Mono;
 
-//@RepositoryRestResource(collectionResourceRel = "users", path = "user")
-public interface UserRepository extends CrudRepository<User, Long>{
+@CrossOrigin(origins = "*")
+public interface UserRepository extends ReactiveMongoRepository<User, String>{
     
-    User findByUsername(String username);
+    Mono<User> findByUsername(String username);
 }

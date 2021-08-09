@@ -41,8 +41,9 @@ public class OrderController {
             return "orderForm";   
         order.setUser(user);
         order.setPlacedAt(new Date());
-        orderRepo.save(order);
+        orderRepo.save(order).block();
         sessionStatus.setComplete();
         return "redirect:/";
     }
+    
 }
