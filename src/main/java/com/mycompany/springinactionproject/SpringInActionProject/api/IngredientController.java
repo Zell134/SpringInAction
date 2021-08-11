@@ -3,6 +3,7 @@ package com.mycompany.springinactionproject.SpringInActionProject.api;
 import com.mycompany.springinactionproject.SpringInActionProject.data.IngredientRepository;
 import com.mycompany.springinactionproject.SpringInActionProject.models.Ingredient;
 import com.mycompany.springinactionproject.SpringInActionProject.services.RabbitMessageSender;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,9 +34,15 @@ public class IngredientController {
         return ingredients;
     }
 
+    @HystrixCommand(fallbackMethod = "getDefaultIngredient")
     @GetMapping("{id}")
-    public Ingredient getIngredient(@PathVariable("id") String id) {
+    public Ingredient getIngredient(@PathVariable("id") String id) throws InterruptedException {
+        //Thread.sleep(20000);
         return ingredientRepo.findById(id).block();
+    }
+    
+    public Ingredient getDefaultIngredient(String id){
+        return new Ingredient("none", "code", "name", "type");
     }
 
 }
